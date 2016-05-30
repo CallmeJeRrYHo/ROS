@@ -1,0 +1,118 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/zhusediao_qian"
+    android:layout_height="match_parent"
+    tools:context="com.bishe.hjh.ros.MeFragment">
+    <RelativeLayout
+        android:background="@color/zhusediao"
+        android:layout_width="match_parent"
+        android:layout_height="135dp">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ_userImage_me"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/boy"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true" />
+        <TextView
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="请登录"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:id="@+id/tv_userName_me"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/civ_userImage_me"
+            android:layout_centerHorizontal="true"/>
+        <ImageButton
+            android:layout_marginTop="10dp"
+            android:background="#00000000"
+            android:scaleType="fitXY"
+            android:id="@+id/ib_setting_me"
+            android:layout_width="30dp"
+            android:src="@drawable/setting"
+            android:layout_height="30dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginEnd="14dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/ll_money_me"
+        android:gravity="center_vertical"
+        android:layout_marginTop="10dp"
+        android:background="@color/zhusediao"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:text="余 额：--￥"
+            android:id="@+id/tv_money_me"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageButton
+            android:scaleType="fitCenter"
+            android:background="#00000000"
+            android:src="@drawable/next"
+            android:layout_width="25dp"
+            android:layout_height="25dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_order_me"
+        android:gravity="center_vertical"
+        android:layout_marginTop="0.5dp"
+        android:background="@color/zhusediao"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:text="我 的 订 单"
+            android:id="@+id/tv_order_me"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageButton
+            android:focusable="false"
+            android:scaleType="fitCenter"
+            android:background="#00000000"
+            android:src="@drawable/next"
+            android:layout_width="25dp"
+            android:layout_height="25dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_logout_me"
+        android:gravity="center_vertical"
+        android:layout_marginTop="0.5dp"
+        android:background="@color/zhusediao"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+    <TextView
+        android:layout_marginLeft="10dp"
+        android:layout_weight="1"
+        android:textColor="#ffffff"
+        android:textSize="18sp"
+        android:text="退 出 登 录"
+        android:id="@+id/tv_logout_me"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:focusable="false"
+        android:scaleType="fitCenter"
+        android:background="#00000000"
+        android:src="@drawable/next"
+        android:layout_width="25dp"
+        android:layout_height="25dp" />
+</LinearLayout>
+</LinearLayout>

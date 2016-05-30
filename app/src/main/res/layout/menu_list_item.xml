@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:stepper="http://schemas.android.com/apk/res-auto"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/yuanjiao_background"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_caishi_item"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_margin="5dp" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_caiming_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="菜胆"
+                android:textColor="#000000"
+                android:textSize="15sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_sell_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="已售：100"
+                    android:textSize="13sp" />
+
+                <RatingBar
+                    android:id="@+id/rb_star_item"
+                    style="@style/Base.Widget.AppCompat.RatingBar.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:isIndicator="true"
+                    android:numStars="5"
+                    android:rating="4" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_price_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="￥50"
+                android:textColor="#000000"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <com.bigkoo.snappingstepper.SnappingStepper
+            android:id="@+id/stp_add_item"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="3dp"
+            android:layout_marginRight="10dp"
+            android:focusable="false"
+            stepper:stepper_background="#00000000"
+            stepper:stepper_contentBackground="#00000000"
+            stepper:stepper_leftButtonBackground="@drawable/minus"
+            stepper:stepper_leftButtonResources="#00000000"
+            stepper:stepper_rightButtonBackground="@drawable/add"
+            stepper:stepper_rightButtonResources="#00000000"></com.bigkoo.snappingstepper.SnappingStepper>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,98 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/zhusediao_qian">
+
+    <View
+        android:id="@+id/view"
+        style="@style/singleLine"
+        android:layout_above="@+id/linearLayout7"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout7"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="#3B3D49">
+
+        <TextView
+            android:id="@+id/tv_price_commit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:text="总价：15￥"
+            android:textColor="#ffffff"
+            android:textSize="19sp" />
+
+        <Button
+            android:id="@+id/btn_commit_commit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@drawable/button_login"
+            android:text="确定支付" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#3B3D49"
+        android:gravity="center"
+        android:text="提 交 订 单"
+        android:textColor="#f0f0f0"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView3"
+        android:text="请选择堂吃或者外卖"
+        android:textColor="#ffffff" />
+
+    <RadioGroup
+        android:id="@+id/rg_take_here_commit"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView2"
+        android:background="#3B3D49"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_here"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="40dp"
+            android:checked="true"
+            android:text="堂吃"
+            android:textSize="18sp" />
+
+        <RadioButton
+            android:id="@+id/rb_take"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="外卖"
+            android:textSize="18sp" />
+    </RadioGroup>
+
+    <LinearLayout
+        android:id="@+id/ll_fragment_container_commit"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/view"
+        android:layout_below="@+id/rg_take_here_commit"
+        android:layout_marginTop="2dp"
+        android:background="@color/zhusediao"></LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/ll_fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/group_home"></LinearLayout>
+
+    <RadioGroup
+        android:id="@+id/group_home"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/zhusediao"
+        android:gravity="bottom"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:checked="true"
+            android:id="@+id/rb_home_home"
+            style="@style/bottom_bar"
+            android:drawableTop="@drawable/ic_home_bottom_select"
+            android:text="首页" />
+
+        <RadioButton
+            android:id="@+id/rb_order_home"
+            style="@style/bottom_bar"
+            android:drawableTop="@drawable/ic_order_bottom_select"
+            android:text="订单" />
+
+        <RadioButton
+            android:id="@+id/rb_me_home"
+            style="@style/bottom_bar"
+            android:drawableTop="@drawable/ic_me_bottom_select"
+            android:text="我" />
+
+    </RadioGroup>
+
+</RelativeLayout>

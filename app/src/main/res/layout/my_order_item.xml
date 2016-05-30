@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/yuanjiao_background">
+    <LinearLayout
+        android:id="@+id/ll_res_item"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="40dp">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_marginLeft="5dp"
+            android:id="@+id/civ_resImage_item"
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:textSize="18sp"
+            android:text="坑德基"
+            android:id="@+id/tv_resName_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageButton
+            android:scaleType="fitCenter"
+            android:background="#00000000"
+            android:src="@drawable/next"
+            android:layout_width="25dp"
+            android:layout_height="25dp" />
+
+    </LinearLayout>
+    <View
+        style="@style/singleLine"/>
+    <LinearLayout
+        android:id="@+id/ll_order_item"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_order_item"
+            android:text="1111111111"
+            android:layout_marginLeft="5dp"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:layout_marginRight="5dp"
+            android:ellipsize="end"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_marginRight="5dp"
+            android:id="@+id/tv_sum_item"
+            android:text="合计：￥15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+        <TextView
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="5dp"
+            android:id="@+id/tv_is_comment_item"
+            android:visibility="invisible"
+            android:text="已评论"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        </LinearLayout>
+</LinearLayout>

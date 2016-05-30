@@ -1,0 +1,96 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:stepper="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv_caishi_detail"
+            android:layout_width="match_parent"
+            android:layout_height="250dp" />
+
+        <TextView
+            android:id="@+id/tv_name_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:text="123456"
+            android:textColor="#000000"
+            android:textSize="28sp" />
+
+        <TextView
+            android:id="@+id/tv_sell_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="已售:100" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_price_detail"
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity=""
+                android:layout_weight="1"
+                android:text="$100"
+                android:textColor="#000000"
+                android:textSize="30dp" />
+            <com.bigkoo.snappingstepper.SnappingStepper
+                android:id="@+id/stp_add_detail"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="3dp"
+                android:layout_marginRight="10dp"
+                android:focusable="false"
+                stepper:stepper_background="#00000000"
+                stepper:stepper_contentBackground="#00000000"
+                stepper:stepper_leftButtonBackground="@drawable/minus"
+                stepper:stepper_leftButtonResources="#00000000"
+                stepper:stepper_rightButtonBackground="@drawable/add"
+                stepper:stepper_rightButtonResources="#00000000"
+                ></com.bigkoo.snappingstepper.SnappingStepper>
+        </LinearLayout>
+
+        <View style="@style/singleLine" />
+
+        <TextView
+            style="@style/detail_label"
+            android:text="菜式评价" />
+
+        <RatingBar
+            android:id="@+id/rb_star_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:rating="4" />
+
+        <View style="@style/singleLine" />
+
+        <TextView
+            style="@style/detail_label"
+            android:text="菜式介绍" />
+
+        <TextView
+            android:id="@+id/tv_des_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:text="jiesho"
+            android:textSize="20sp" />
+    </LinearLayout>
+</ScrollView>

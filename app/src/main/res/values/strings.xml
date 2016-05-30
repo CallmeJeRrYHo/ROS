@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">ROS</string>
+    <string name="des">\"介绍\"</string>
+    <string name="title_activity_menu_list">MenuList</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_caishi_detail">caishiDetailActivity</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_resgist">ResgistActivity</string>
+    <string name="title_activity_new_home">newHome</string>
+    <string name="ip">192.168.1.112</string>
+    <string name="title_activity_commit_order">CommitOrderActivity</string>
+    <string name="title_activity_my_order_fragment">MyOrderFragment</string>
+    <string name="title_activity_comment">CommentActivity</string>
+</resources>

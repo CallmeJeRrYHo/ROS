@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ic_login_back"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="186dp"
+        android:background="@drawable/edit_login"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_username" />
+
+        <EditText
+            android:id="@+id/et_userName_login"
+            style="@style/edittext_login"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:hint="请输入用户名"
+            android:inputType="textPersonName" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_alignLeft="@+id/linearLayout2"
+        android:layout_alignStart="@+id/linearLayout2"
+        android:layout_alignTop="@+id/linearLayout2"
+        android:layout_marginTop="44dp"
+        android:background="@drawable/edit_login"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="4dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_password" />
+
+        <EditText
+            android:id="@+id/et_password_login"
+            style="@style/edittext_login"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="14dp"
+            android:hint="请输入密码"
+            android:inputType="textPassword" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_login_login"
+        android:layout_width="240dp"
+        android:layout_height="35dp"
+        android:layout_below="@+id/linearLayout3"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/button_login"
+        android:text="登   录" />
+
+    <TextView
+        android:id="@+id/tv_register_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/btn_login_login"
+        android:layout_alignStart="@+id/btn_login_login"
+        android:layout_below="@+id/btn_login_login"
+        android:layout_marginTop="29dp"
+        android:text="点击注册"
+        android:textColor="#6D6F7A"
+        android:textSize="16sp" />
+</RelativeLayout>
+

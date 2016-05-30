@@ -1,0 +1,49 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/zhusediao_qian"
+    android:weightSum="1">
+<TextView
+    android:padding="5dp"
+    android:layout_width="wrap_content"
+    android:layout_height="30dp"
+    android:text="商品评价"
+    android:id="@+id/textView5" />
+    <ListView
+        android:id="@+id/lv_food_comment"
+        android:background="@color/zhusediao"
+        android:layout_width="match_parent"
+        android:layout_height="232dp"
+        android:layout_weight="0.58"
+        android:layout_above="@+id/textView4"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView5"></ListView>
+   <TextView
+       android:padding="5dp"
+       android:layout_width="wrap_content"
+       android:layout_height="30dp"
+       android:text="餐厅留言"
+       android:layout_above="@+id/et_res_comment_comment"
+       android:layout_alignParentLeft="true"
+       android:layout_alignParentStart="true"
+       android:id="@+id/textView4" />
+    <EditText
+        android:id="@+id/et_res_comment_comment"
+        android:padding="5dp"
+        android:maxLength="150"
+        android:hint="您的建议很重要，请点评一下吧！"
+        android:maxLines="3"
+        android:background="@color/zhusediao"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_above="@+id/btn_commit_comment"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+<Button
+    android:text="提交评价"
+    android:layout_alignParentBottom="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/btn_commit_comment" />
+</RelativeLayout>

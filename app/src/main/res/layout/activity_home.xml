@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dl_home"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vp_zixun_home"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"></android.support.v4.view.ViewPager>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+
+                android:background="#33000000"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_lvTitle_home"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="111"
+                    android:textColor="#ffffff" />
+
+                <LinearLayout
+                    android:id="@+id/ll_dot_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+        <TextView
+            android:layout_gravity="center_vertical"
+            android:layout_margin="5dp"
+            android:text="商家列表"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <RelativeLayout
+            android:layout_marginTop="3dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <in.srain.cube.views.ptr.PtrClassicFrameLayout
+                android:id="@+id/ptr_restaurant_home"
+                xmlns:cube_ptr="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#F0F0F0"
+                cube_ptr:ptr_duration_to_close="200"
+                cube_ptr:ptr_duration_to_close_header="1000"
+                cube_ptr:ptr_keep_header_when_refresh="true"
+                cube_ptr:ptr_pull_to_fresh="false"
+                cube_ptr:ptr_ratio_of_header_height_to_refresh="1.2"
+                cube_ptr:ptr_resistance="1.7">
+        <ListView
+            android:divider="#00000000"
+            android:id="@+id/lv_restaurantList_home"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></ListView>
+            </in.srain.cube.views.ptr.PtrClassicFrameLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/blue"
+        android:orientation="vertical">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ_userImage_home"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/boy" />
+
+        <TextView
+            android:id="@+id/tv_userName_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="5dp"
+            android:text="请登录"
+            android:textSize="16dp" />
+
+
+    </LinearLayout>
+
+</android.support.v4.widget.DrawerLayout>
