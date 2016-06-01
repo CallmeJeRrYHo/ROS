@@ -23,7 +23,6 @@
             <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Home" />
         <activity android:name=".Guid" />
         <activity
             android:name=".MenuList"
@@ -49,10 +48,6 @@
         <activity
             android:name=".CommitOrderActivity"
             android:label="@string/title_activity_commit_order"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
-        <activity
-            android:name=".MyOrderFragment"
-            android:label="@string/title_activity_my_order_fragment"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
             android:name=".CommentActivity"

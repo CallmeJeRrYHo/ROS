@@ -17,10 +17,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.bishe.hjh.ros.util.ImageLoadUtils;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -88,15 +85,7 @@ public class MenuListFragment extends Fragment implements View.OnClickListener {
         tv_resDes.setText(r.getResDes());
         tv_sell.setText("已售："+r.getSell());
         tv_address.setText(r.getResAddress());
-        ImageLoaderConfiguration d=ImageLoaderConfiguration.createDefault(getActivity());
-        ImageLoader.getInstance().init(d);
-        ImageLoader loader=ImageLoader.getInstance();
-        DisplayImageOptions o=new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.drawable.loading)
-                .showImageOnFail(R.drawable.loading_error)
-                .cacheInMemory(true)
-                .imageScaleType(ImageScaleType.NONE).build();
-        loader.displayImage(r.getImageFile(),iv_photo);
+        ImageLoadUtils.Instance().setImage(getContext(),r.getImageFile(),iv_photo);
         return v;
     }
 

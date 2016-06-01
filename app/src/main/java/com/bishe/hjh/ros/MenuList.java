@@ -6,7 +6,7 @@ public class MenuList extends SingleFragmentActivity {
 
     @Override
     protected Fragment CreateFragment() {
-        Restaurant r= (Restaurant) getIntent().getSerializableExtra(Home.RESTAURANT);
+        Restaurant r= (Restaurant) getIntent().getSerializableExtra("restaurant");
         Fragment fragment=MenuListFragment.newInstance(r);
         return fragment;
     }

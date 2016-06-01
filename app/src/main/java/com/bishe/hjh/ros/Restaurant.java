@@ -38,7 +38,7 @@ public class Restaurant  implements Serializable{
         ratingStar=j.getInt(JSON_STAR);
         if (j.getString(JSON_PHOTO)!=null)
             ImageFile=j.getString(JSON_PHOTO);
-        if (j.getString(JSON_ADDRE)!=null) {
+        if (j.has(JSON_ADDRE)) {
             resAddress = j.getString(JSON_ADDRE);
         }
         else{

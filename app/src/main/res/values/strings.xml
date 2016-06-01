@@ -10,7 +10,7 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_resgist">ResgistActivity</string>
     <string name="title_activity_new_home">newHome</string>
-    <string name="ip">192.168.1.112</string>
+    <string name="ip">119.29.190.80</string>
     <string name="title_activity_commit_order">CommitOrderActivity</string>
     <string name="title_activity_my_order_fragment">MyOrderFragment</string>
     <string name="title_activity_comment">CommentActivity</string>

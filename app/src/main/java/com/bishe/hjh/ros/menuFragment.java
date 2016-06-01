@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -27,19 +26,14 @@ import com.bishe.hjh.ros.bean.Order;
 import com.bishe.hjh.ros.bean.OrderFood;
 import com.bishe.hjh.ros.bean.User;
 import com.bishe.hjh.ros.bean.caishi;
-import com.bishe.hjh.ros.util.StreamUtils;
+import com.bishe.hjh.ros.net.OkHttpUtils;
+import com.bishe.hjh.ros.util.ImageLoadUtils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -139,13 +133,12 @@ public class menuFragment extends Fragment implements View.OnClickListener {
 
         ib_shoppingcar= (ImageButton) v.findViewById(R.id.ib_shoppingcar_menu);
         ib_shoppingcar.setOnClickListener(this);
-        new myAsyncTask().execute(String.valueOf(mParam1.getId()));
+        getCaishi();
         ptr= (PtrFrameLayout) v.findViewById(R.id.ptr_caishi_menu);
         ptr.setPtrHandler(new PtrDefaultHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
-                new myAsyncTask().execute(String.valueOf(mParam1.getId()));
-
+getCaishi();
 
             }
         });
@@ -174,43 +167,32 @@ public class menuFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    class myAsyncTask extends AsyncTask<String,Void,List<caishi>>{
-
-        @Override
-        protected List<caishi> doInBackground(String... params) {
-
-            try {
-                list = new ArrayList<caishi>();
-                URL u = new URL("http://" + getResources().getString(R.string.ip) + ":8080/web/servlet/ReadCaishi?restaurantId=" + params[0]);
-                HttpURLConnection con = (HttpURLConnection) u.openConnection();
-                con.setReadTimeout(5000);
-                con.setConnectTimeout(5000);
-                con.setRequestMethod("GET");
-                int code = con.getResponseCode();
-                if (code == 200) {
-                    String result = StreamUtils.parserStream(con.getInputStream());
-                    JSONArray ja = new JSONArray(result);
+    public void getCaishi(){
+        OkHttpUtils.Instance().get("http://" + getResources().getString(R.string.ip) + ":8080/web/servlet/ReadCaishi?restaurantId=" + mParam1.getId(), new OkHttpUtils.ReturnResult() {
+            @Override
+            public void onSuccess(String s) {
+                JSONArray ja = null;
+                try {
+                    ja = new JSONArray(s);
                     for (int i = 0; i < ja.length(); i++) {
                         JSONObject j = (JSONObject) ja.get(i);
                         caishi r = new caishi(j);
-
                         list.add(r);
                     }
+                    r=new caishiAdapter(getActivity(),list);
+                    lv_caishi.setAdapter(r);
+                    ptr.refreshComplete();
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            return list;
-        }
 
-        @Override
-        protected void onPostExecute(List<caishi> list) {
-            r=new caishiAdapter(getActivity(),list);
-            lv_caishi.setAdapter(r);
-            ptr.refreshComplete();
-        }
+            }
+
+            @Override
+            public void onFail(String s) {
+
+            }
+        });
     }
     class caishiAdapter extends BaseAdapter {
         private Context context;
@@ -251,18 +233,9 @@ public class menuFragment extends Fragment implements View.OnClickListener {
                 v.sell= (TextView) ll.findViewById(R.id.tv_sell_item);
                 v.star= (RatingBar) ll.findViewById(R.id.rb_star_item);
                 v.stp_add= (SnappingStepper) ll.findViewById(R.id.stp_add_item);
-                ImageLoaderConfiguration d=ImageLoaderConfiguration.createDefault(context);
-                ImageLoader.getInstance().init(d);
-                v.loader=ImageLoader.getInstance();
-                v.o=new DisplayImageOptions.Builder()
-                        .showImageOnLoading(R.drawable.loading)
-                        .showImageOnFail(R.drawable.loading_error)
-                        .cacheInMemory(true)
-                        .imageScaleType(ImageScaleType.NONE).build();
                 ll.setTag(v);
             }
-
-            v.loader.displayImage(c.getImageFile(),v.image,v.o);
+            ImageLoadUtils.Instance().setImage(getContext(),c.getImageFile(),v.image);
             v.name.setText(c.getName());
             v.price.setText("￥"+c.getPrice());
             v.sell.setText("已售："+c.getSell());
@@ -359,8 +332,6 @@ public class menuFragment extends Fragment implements View.OnClickListener {
         RatingBar star;
         TextView price;
         SnappingStepper stp_add;
-        ImageLoader loader;
-        DisplayImageOptions o;
     }
 
     @Override

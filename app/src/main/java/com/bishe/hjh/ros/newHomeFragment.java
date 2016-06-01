@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -27,21 +26,19 @@ import android.widget.Toast;
 
 import com.bishe.hjh.ros.Thread.updateRestaurant;
 import com.bishe.hjh.ros.bean.User;
+import com.bishe.hjh.ros.net.OkHttpUtils;
+import com.bishe.hjh.ros.util.ImageLoadUtils;
 import com.bishe.hjh.ros.util.RestaurantAdapter;
-import com.bishe.hjh.ros.util.StreamUtils;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
@@ -67,23 +64,30 @@ public class newHomeFragment extends Fragment implements View.OnClickListener {
     public static final int LOGIN = 10;
     private static final int REFRESH_RESTAURANT = 20;
     private static final int RECIRLE = 30;
+    @BindView(R.id.vp_zixun_home)
+    ViewPager vp_zixun;
+    @BindView(R.id.tv_lvTitle_home)
+    TextView tv_title;
+    @BindView(R.id.ll_dot_container)
+    LinearLayout ll_dot_conainer;
+    @BindView(R.id.lv_restaurantList_home)
+    ListView lv_restaurantList;
+    @BindView(R.id.ptr_restaurant_home)
+    PtrClassicFrameLayout ptr;
+    @BindView(R.id.civ_userImage_home)
+    CircleImageView userImage;
+    @BindView(R.id.tv_userName_home)
+    TextView tv_userName;
+    @BindView(R.id.dl_home)
+    DrawerLayout dl_home;
+    private updateRestaurant ur;
     private ArrayList<String> items;
     private ArrayAdapter arrayAdapter;
-    private ListView listView;
-    private List<Restaurant> restaurants=new ArrayList<Restaurant>();
-    private DrawerLayout dl_home;
+    private List<Restaurant> restaurants = new ArrayList<>();
     private static final String MY_INFO = "我的信息";
-    private ViewPager vp_zixun;
     private ViewPagerAdapter adapter;
     private List<View> list;
-    private LinearLayout ll_dot_conainer;
-    private ListView lv_restaurantList;
     private int count = 0;
-    private CircleImageView userImage;
-    private PtrClassicFrameLayout ptr;
-    private TextView tv_title;
-    private TextView tv_useName;
-    private updateRestaurant ur;
     private Message pagerRe;
     private Handler handler = new Handler() {
         @Override
@@ -111,12 +115,11 @@ public class newHomeFragment extends Fragment implements View.OnClickListener {
     };
     private int current;
     private Uri uri;
-    private ImageLoader loader;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private int index=0;
-    private User u=null;
+    private int index = 0;
+    private User u = null;
     private MeFragment f_me;
     private String user;
 
@@ -157,42 +160,37 @@ public class newHomeFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        SharedPreferences sh=getActivity().getSharedPreferences("userInfo", Context.MODE_PRIVATE);
-        user=sh.getString("user",null);
+        SharedPreferences sh = getActivity().getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        user = sh.getString("user", null);
 
-        View v=inflater.inflate(R.layout.activity_home, container, false);
+        View v = inflater.inflate(R.layout.activity_home, container, false);
 
         dl_home = (DrawerLayout) v.findViewById(R.id.dl_home);
         ptr = (PtrClassicFrameLayout) v.findViewById(R.id.ptr_restaurant_home);
         vp_zixun = (ViewPager) v.findViewById(R.id.vp_zixun_home);
         lv_restaurantList = (ListView) v.findViewById(R.id.lv_restaurantList_home);
-        new myAsyncTask().execute();
+        getRestaurant();
         userImage = (CircleImageView) v.findViewById(R.id.civ_userImage_home);
         tv_title = (TextView) v.findViewById(R.id.tv_lvTitle_home);
-        tv_useName = (TextView) v.findViewById(R.id.tv_userName_home);
+        tv_userName = (TextView) v.findViewById(R.id.tv_userName_home);
         userImage.setOnClickListener(this);
-        ImageLoaderConfiguration configuration = ImageLoaderConfiguration.createDefault(getActivity());
-        ImageLoader.getInstance().init(configuration);
-        loader = ImageLoader.getInstance();
         ll_dot_conainer = (LinearLayout) v.findViewById(R.id.ll_dot_container);
-        if (user!=null)
-        {
+        if (user != null) {
             try {
-                JSONObject j=new JSONObject(user);
-                u=new User(j);
+                JSONObject j = new JSONObject(user);
+                u = new User(j);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            loader.displayImage(u.getUserImage(), userImage);
-            // userImage.setImageURI(uri);
-            tv_useName.setText(u.getUserName());
+            ImageLoadUtils.Instance().setImage(getContext(),u.getUserImage(),userImage);
+            tv_userName.setText(u.getUserName());
         }
         initViewPager();
 
         ptr.setPtrHandler(new PtrHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
-                new myAsyncTask().execute();
+                getRestaurant();
             }
 
             @Override
@@ -213,12 +211,13 @@ public class newHomeFragment extends Fragment implements View.OnClickListener {
         });
 
 
+        ButterKnife.bind(this, v);
         return v;
     }
 
     private void initViewPager() {
-        current= Integer.MAX_VALUE / 2 - (Integer.MAX_VALUE / 2 % 4);
-        Log.d("111111", "initViewPager: "+current);
+        current = Integer.MAX_VALUE / 2 - (Integer.MAX_VALUE / 2 % 4);
+        Log.d("111111", "initViewPager: " + current);
         list = new ArrayList<View>();
         for (int i = 0; i < imageIds.length; i++) {
             ImageView imageView = new ImageView(getActivity());
@@ -267,7 +266,7 @@ public class newHomeFragment extends Fragment implements View.OnClickListener {
 
             }
         });
-        pagerRe=Message.obtain();
+        pagerRe = Message.obtain();
         pagerRe.what = RECIRLE;
         handler.sendMessageDelayed(pagerRe, 2000);
 
@@ -293,16 +292,16 @@ public class newHomeFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.civ_userImage_home:
-                if (u!=null){
-                    FragmentManager fm=getFragmentManager();
-                    if (f_me==null) {
+                if (u != null) {
+                    FragmentManager fm = getFragmentManager();
+                    if (f_me == null) {
                         f_me = new MeFragment();
                     }
-                    Bundle bundle=new Bundle();
-                    bundle.putSerializable("user",u);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("user", u);
                     f_me.setArguments(bundle);
-                    fm.beginTransaction().replace(R.id.ll_fragment_container,f_me).commit();
-                }else {
+                    fm.beginTransaction().replace(R.id.ll_fragment_container, f_me).commit();
+                } else {
                     Intent i = new Intent(getActivity(), LoginActivity.class);
                     startActivityForResult(i, LOGIN);
                 }
@@ -322,53 +321,39 @@ public class newHomeFragment extends Fragment implements View.OnClickListener {
             case LOGIN:
                 if (resultCode == Activity.RESULT_OK) {
                     User u = (User) data.getSerializableExtra(LoginActivity.USER);
-                    uri = Uri.parse(u.getUserImage());
-                    // Bitmap b= BitmapFactory.decodeFile(u.getUserImage());
-                    Log.d("111111", "onActivityResult: " + uri + "   ");
-                    loader.displayImage(u.getUserImage(), userImage);
-                    // userImage.setImageURI(uri);
-                    tv_useName.setText(u.getUserName());
-                    Log.d("111111", "onActivityResult: " + u.getUserName());
+                    ImageLoadUtils.Instance().setImage(getContext(),u.getUserImage(),userImage);
+                    tv_userName.setText(u.getUserName());
                 }
         }
     }
-    class myAsyncTask extends AsyncTask<String,Void,List<Restaurant>> {
 
-        @Override
-        protected List<Restaurant> doInBackground(String... params) {
-
-            try {
-                restaurants = new ArrayList<Restaurant>();
-                URL u = new URL("http://" + getResources().getString(R.string.ip) + ":8080/web/servlet/ReadRestaurant");
-                HttpURLConnection con = (HttpURLConnection) u.openConnection();
-                con.setReadTimeout(5000);
-                con.setConnectTimeout(5000);
-                con.setRequestMethod("GET");
-                int code = con.getResponseCode();
-                if (code == 200) {
-                    String result = StreamUtils.parserStream(con.getInputStream());
-                    JSONArray ja = new JSONArray(result);
+    void getRestaurant() {
+        OkHttpUtils.Instance().get("http://" + getResources().getString(R.string.ip) + ":8080/web/servlet/ReadRestaurant", new OkHttpUtils.ReturnResult() {
+            @Override
+            public void onSuccess(String s) {
+                JSONArray ja = null;
+                try {
+                    ja = new JSONArray(s);
                     Log.d("111111", "onRefreshBegin: " + ja.length());
                     for (int i = 0; i < ja.length(); i++) {
                         JSONObject j = (JSONObject) ja.get(i);
-                        Restaurant r = new Restaurant(j);
-
+                        Restaurant r = null;
+                        r = new Restaurant(j);
                         restaurants.add(r);
                     }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
+                RestaurantAdapter rd = new RestaurantAdapter(restaurants, getActivity());
+                lv_restaurantList.setAdapter(rd);
+                ptr.refreshComplete();
             }
-            return restaurants;
-        }
 
-        @Override
-        protected void onPostExecute(List<Restaurant> list) {
-            RestaurantAdapter rd = new RestaurantAdapter(restaurants, getActivity());
-            lv_restaurantList.setAdapter(rd);
-            ptr.refreshComplete();
-        }
+            @Override
+            public void onFail(String s) {
+
+            }
+        });
     }
+
 }

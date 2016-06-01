@@ -22,10 +22,7 @@ import com.bishe.hjh.ros.bean.Order;
 import com.bishe.hjh.ros.bean.OrderFood;
 import com.bishe.hjh.ros.bean.User;
 import com.bishe.hjh.ros.bean.caishi;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.bishe.hjh.ros.util.ImageLoadUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -90,15 +87,7 @@ public class caishiDetailActivityFragment extends Fragment {
         tv_sell= (TextView) v.findViewById(R.id.tv_sell_detail);
         tv_sell.setText("已售："+c.getSell());
         iv_photo= (ImageView) v.findViewById(R.id.iv_caishi_detail);
-        ImageLoaderConfiguration d=ImageLoaderConfiguration.createDefault(getActivity());
-        ImageLoader.getInstance().init(d);
-        ImageLoader loader=ImageLoader.getInstance();
-        DisplayImageOptions o=new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.drawable.loading)
-                .showImageOnFail(R.drawable.loading_error)
-                .cacheInMemory(true)
-                .imageScaleType(ImageScaleType.NONE).build();
-        loader.displayImage(c.getImageFile(),iv_photo);
+        ImageLoadUtils.Instance().setImage(getContext(),c.getImageFile(),iv_photo);
         stp_add= (SnappingStepper) v.findViewById(R.id.stp_add_detail);
 
         SharedPreferences sh=getActivity().getSharedPreferences("userInfo", Context.MODE_PRIVATE);

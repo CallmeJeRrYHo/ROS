@@ -18,9 +18,8 @@ import android.widget.Toast;
 
 import com.bishe.hjh.ros.bean.Order;
 import com.bishe.hjh.ros.bean.User;
+import com.bishe.hjh.ros.util.ImageLoadUtils;
 import com.bishe.hjh.ros.util.StreamUtils;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -184,9 +183,6 @@ public class MyOrderFragment extends Fragment {
             }
 
             holder.tv_resName.setText(list.get(position).getRestaurant().getName());
-            ImageLoaderConfiguration configuration = ImageLoaderConfiguration.createDefault(getActivity());
-            ImageLoader.getInstance().init(configuration);
-            ImageLoader loader = ImageLoader.getInstance();
             if (list.get(position).isComment()){
                 holder.tv_isComment.setVisibility(View.VISIBLE);
             }else {
@@ -200,7 +196,7 @@ public class MyOrderFragment extends Fragment {
                     }
                 });
             }
-            loader.displayImage(list.get(position).getRestaurant().getImageFile(),holder.civ_image);
+            ImageLoadUtils.Instance().setImage(getContext(),list.get(position).getRestaurant().getImageFile(),holder.civ_image);
             holder.ll_res.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -19,9 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bishe.hjh.ros.bean.User;
+import com.bishe.hjh.ros.util.ImageLoadUtils;
 import com.bishe.hjh.ros.util.StreamUtils;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -62,7 +61,6 @@ public class MeFragment extends Fragment {
     private ImageView setting;
     private LinearLayout logout;
     private boolean isLogin=false;
-    private ImageLoader loader;
     private String u;
     private String un=null;
     public MeFragment() {
@@ -141,12 +139,8 @@ public class MeFragment extends Fragment {
 
             }
         });
-
-        ImageLoaderConfiguration configuration = ImageLoaderConfiguration.createDefault(getActivity());
-        ImageLoader.getInstance().init(configuration);
-        loader = ImageLoader.getInstance();
         if (isLogin){
-            loader.displayImage(user.getUserImage(),userImage);
+            ImageLoadUtils.Instance().setImage(getContext(),user.getUserImage(),userImage);
             userName.setText(user.getUserName());
         }else if (u!=null){
             try {
@@ -154,7 +148,7 @@ public class MeFragment extends Fragment {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            loader.displayImage(user.getUserImage(),userImage);
+            ImageLoadUtils.Instance().setImage(getContext(),user.getUserImage(),userImage);
             userName.setText(user.getUserName());
             un=user.getUserName();
         }
@@ -215,7 +209,7 @@ public class MeFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode== Activity.RESULT_OK) {
             User user1 = (User) data.getSerializableExtra(LoginActivity.USER);
-            loader.displayImage(user1.getUserImage(),userImage);
+            ImageLoadUtils.Instance().setImage(getContext(),user1.getUserImage(),userImage);
             userName.setText(user1.getUserName());
             tv_money.setText("余 额："+user1.getMoney()+"￥");
             Log.d("111111", "onActivityResult: " + user1.getUserName());

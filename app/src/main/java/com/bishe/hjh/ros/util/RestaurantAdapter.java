@@ -12,10 +12,6 @@ import android.widget.TextView;
 
 import com.bishe.hjh.ros.R;
 import com.bishe.hjh.ros.Restaurant;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
 import java.util.List;
 
@@ -65,16 +61,7 @@ public class RestaurantAdapter extends BaseAdapter {
             ll.setTag(v);
         }
         Restaurant r = restaurants.get(position);
-        ImageLoaderConfiguration d = ImageLoaderConfiguration.createDefault(context);
-        ImageLoader.getInstance().init(d);
-        ImageLoader loader = ImageLoader.getInstance();
-        DisplayImageOptions o=new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.drawable.loading)
-                .showImageOnFail(R.drawable.loading_error)
-                .cacheInMemory(true)
-                .cacheOnDisk(true)
-                .imageScaleType(ImageScaleType.NONE).build();
-        loader.displayImage(r.getImageFile(), v.restaurantPhoto,o);
+        ImageLoadUtils.Instance().setImage(context,r.getImageFile(),v.restaurantPhoto);
         v.sell.setText("已售：" + r.getSell());
         v.resName.setText(r.getName());
         v.star.setRating(r.getRatingStar());

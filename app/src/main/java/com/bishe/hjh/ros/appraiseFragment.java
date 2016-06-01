@@ -15,8 +15,6 @@ import android.widget.TextView;
 
 import com.bishe.hjh.ros.bean.Comment;
 import com.bishe.hjh.ros.util.StreamUtils;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,7 +30,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
-import in.srain.cube.views.ptr.PtrHandler;
 
 
 /**
@@ -88,15 +85,11 @@ public class appraiseFragment extends Fragment {
 
         lv= (ListView) v.findViewById(R.id.lv_appraise_appraise);
         ptr= (PtrClassicFrameLayout) v.findViewById(R.id.ptr_comment_appraise);
-        ptr.setPtrHandler(new PtrHandler() {
-            @Override
-            public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-                return PtrDefaultHandler.checkContentCanBePulledDown(frame, content, header);
-            }
-
+        ptr.setPtrHandler(new PtrDefaultHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
                 new resComment().execute(""+mParam1);
+
             }
         });
         new resComment().execute(""+mParam1);
@@ -181,15 +174,10 @@ public class appraiseFragment extends Fragment {
                 v.comment= (TextView) ll.findViewById(R.id.tv_comment_item);
                 ll.setTag(v);
             }
-            ImageLoaderConfiguration configuration = ImageLoaderConfiguration.createDefault(getActivity());
-            ImageLoader.getInstance().init(configuration);
-            ImageLoader loader = ImageLoader.getInstance();
-
             v.user.setText(list.get(position).getUserId()+"");
             v.comment.setText(list.get(position).getComment());
             v.date.setText(list.get(position).getDate());
             float f=Float.parseFloat(list.get(position).getStar().toString());
-            Log.d("444444", "getView: "+f);
             v.rb.setRating(f);
             return ll;
         }
